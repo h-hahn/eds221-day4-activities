@@ -1,0 +1,101 @@
+---
+title: "eds-221-day-4-tasks"
+format: html
+editor: visual
+---
+
+## PART 1
+
+### Task 1:
+
+```{r}
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+transects <- c("Transect A", "Transect B", "Transect C")
+
+day_transect_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)) {
+    intermediate <- paste(weekdays[i], "-", transects[j])
+    day_transect_matrix[i,j] <- intermediate
+  }
+}
+
+View(day_transect_matrix)
+```
+
+## PART 2
+
+### Task 2:
+
+```{r}
+calculate_force_N <- function(mass_kg, acceleration_m_s2) {
+  force_N <- mass_kg * acceleration_m_s2
+  paste("The resulting force is", force_N, "Newtons")
+}
+
+calculate_force_N(50, 35)
+```
+
+### Task 3:
+
+```{r}
+sci_name <- c("Chanos chanos", "Sphyraena barracuda", "Caranx ignobilis")
+
+common_name <- c("Milkfish", "Great barracuda", "Giant trevally")
+
+a_est <- c(0.0905, 0.0181, 0.0353)
+
+b_est <- c(2.52, 3.27, 3.05)
+
+fish_parms <- data.frame(sci_name, common_name, a_est, b_est)
+```
+
+```{r}
+fish_weight <- function(fish_name, tot_length) {
+  if (fish_name == "Milkfish") {
+    0.0905 * (tot_length ^ 2.52)
+  } else if (fish_name == "Great barracuda") {
+    0.0181 * (tot_length ^ 3.27)
+  } else if (fish_name == "Giant trevally") {
+    0.0353 * (tot_length ^ 3.05)
+  }
+}
+
+fish_weight("Great barracuda", 15)
+```
+
+```{r}
+milkfish_lengths <- seq(from = 1, to = 100, by = 1)
+
+milkfish_weights <- fish_weight("Milkfish", milkfish_lengths)
+```
+
+### Task 4:
+
+```{r}
+wave_power <- function(period, height) {
+  0.5 * (height^2) * period
+}
+
+height_range <- seq(from = 0, to = 3, by = 0.2)
+
+wave_power(period = 8, height = height_range)
+```
+
+### Task 5:
+
+```{r}
+wave_power_brenville <- function(depth, period, height) {
+  if (depth > 12) {
+    message("deep equation used")
+    0.5 * (height^2) * period
+  } else if (depth <= 12) {
+    message("shallow equation used")
+    0.81 * (height^2) * period
+  }
+}
+
+wave_power_brenville(depth = 30, period = 8, height = 2)
+```
